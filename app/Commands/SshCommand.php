@@ -39,6 +39,10 @@ class SshCommand extends Command
             'Register New Connection',
             'Delete Connection',
         ])->open();
+        if( !is_int($command) ) {
+            return;
+        }
+
         switch ($command) {
             case 0:
                 $this->connectConnection();
@@ -55,6 +59,7 @@ class SshCommand extends Command
             default:
                 break;
         }
+        return;
     }
 
     /**
@@ -109,6 +114,9 @@ class SshCommand extends Command
             $names[$k] = $name;
         }
         $connect = $this->menu('All Connections', $names)->open();
+        if( !is_int($connect) ) {
+            return;
+        }
         $connect = $this->connections[$connect];
         
         $action = $this->menu('Action', [
@@ -121,7 +129,7 @@ class SshCommand extends Command
             $this->line('Name: ' . $connect['name']);
             $this->line('Host: ' . $connect['host']);
             $this->line('Port: ' . $connect['port']);
-            if( $connection['port_forwarding'] === 'yes'){
+            if( $connect['port_forwarding'] === 'yes'){
                 $this->line('Port Forwarding');
                 $this->line('Host: '. $connect['host']);
                 $this->line('Method: '. $connect['pf_method']);
