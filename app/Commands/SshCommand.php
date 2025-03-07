@@ -302,7 +302,7 @@ class SshCommand extends Command
             ));
         } else {
             passthru(sprintf(
-                'sshpass -p %s ssh -o StrictHostKeyChecking=no %s@%s -p %s %s',
+                'sshpass -p "%s" ssh -o StrictHostKeyChecking=no "%s"@%s -p %s %s',
                 $config['password'],
                 $config['user'],
                 $config['host'],
